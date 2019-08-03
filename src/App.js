@@ -5,25 +5,45 @@ import CharacterCard from "./components/CharacterCard";
 import Button from './components/Button';
 
 
-function App() {
-    return (
-        <main className="appRoot__wrapper">
-            <CharacterCard
-                name="Jon Snow"
-                culture="Northmen"
-                gender="Male"
-                numberOfSeasons={7}
-            />
-            <CharacterCard
-                name="Daenerys"
-                culture="Westerosi"
-                gender="Female"
-                numberOfSeasons={7}
-                isDead={true}
-            />
-            <Button/>
-        </main>
-    );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            characters: [
+                {
+                    name: "Jon Snow",
+                    culture: "Northmen",
+                    gender: "Male",
+                    numberOfSeasons: 7,
+                    isDead: true
+                },
+                {
+                    name: "Daenerys Targaryen",
+                    culture: "Westerosi",
+                    gender: "Female",
+                    numberOfSeasons: 7,
+                    isDead: false
+                }
+            ],
+            actualCharacter: 0
+        };
+    }
+
+    render() {
+        const character = this.state.characters[this.state.actualCharacter];
+
+        return (
+            <main className="appRoot__wrapper">
+                <CharacterCard
+                    name={character.name}
+                    culture={character.culture}
+                    gender={character.gender}
+                    numberOfSeasons={character.numberOfSeasons}
+                />
+                <Button/>
+            </main>
+        );
+    }
 }
 
 export default App;
