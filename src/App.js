@@ -1,7 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 
 import './App.css';
 import CharacterCard from "./components/CharacterCard";
+import CardLoading from "./components/CardLoading";
 import Button from './components/Button';
 
 
@@ -9,25 +11,25 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            characters: [
-                {
-                    name: "Jon Snow",
-                    culture: "Northmen",
-                    gender: "Male",
-                    numberOfSeasons: 7,
-                    isDead: true
-                },
-                {
-                    name: "Daenerys Targaryen",
-                    culture: "Westerosi",
-                    gender: "Female",
-                    numberOfSeasons: 7,
-                    isDead: false
-                },
-                
-            ],
+            characters: [],
+            hasFetched: false,
             actualCharacter: 0
         };
+    }
+
+    componentDidMount() {
+        axios({
+            method: "GET",
+            url: "https://www.anapioficeandfire.com/api/characters?page=2&pageSize=20"
+        }).then(response => {
+            this.setState(state => {
+                return {
+                    characters: response.data,
+                    hasFetched: true
+                };
+            });
+        });
+
     }
 
     render() {
@@ -35,12 +37,17 @@ class App extends React.Component {
 
         return (
             <main className="appRoot__wrapper">
-                <CharacterCard
-                    name={character.name}
-                    culture={character.culture}
-                    gender={character.gender}
-                    numberOfSeasons={character.numberOfSeasons}
-                />
+                {this.state.hasFetched ? (
+                    <CharacterCard
+                        name={character.name}
+                        culture={character.culture}
+                        gender={character.gender}
+                        numberOfSeasons={character.numberOfSeasons}
+                        isDead={character.isDead}
+                    />
+                ) : (
+                    <CardLoading/>
+                )}
                 <Button clickHandler={() => {
                     this.setState(state => ({
                         actualCharacter: (state.actualCharacter + 1) % 2
