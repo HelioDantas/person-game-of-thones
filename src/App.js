@@ -19,6 +19,7 @@ function App() {
                 culture="Westerosi"
                 gender="Female"
                 numberOfSeasons={7}
+                isDead={true}
             />
             <Button/>
         </main>

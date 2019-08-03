@@ -3,7 +3,7 @@ import React from "react";
 function CharacterCard(props) {
     return (
         <article className="characterCard">
-            <header className="characterCard-header__wrapper --isDead">
+            <header className={`characterCard-header__wrapper ${props.isDead ? "--isDead" : ""}`}>
                 <h1 className="characterCard-name">{props.name}</h1>
             </header>
             <ul className="characterCard-body">

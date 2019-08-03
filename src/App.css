@@ -11,6 +11,10 @@
     border-radius: 4px;
 }
 
+.--isDead {
+    background: red;
+}
+
 .characterCard {
     text-align: center;
     background-color: aliceblue;
