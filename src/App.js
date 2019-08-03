@@ -29,7 +29,7 @@ class App extends React.Component {
             this.setState(state => {
                 return {
                     characters: response.data,
-                    currentState: CARD_VISIBLE
+                    currentState: ENTERING_CARD
                 };
             });
         });
@@ -42,7 +42,7 @@ class App extends React.Component {
                 {this.renderCard()}
                 <Button clickHandler={() => {
                     this.setState(state => ({
-                        actualCharacter: (state.actualCharacter + 1) % 2
+                        currentState: LEAVING_CARD
                     }));
                 }}/>
             </main>
@@ -51,6 +51,7 @@ class App extends React.Component {
 
     renderCard() {
         const character = this.state.characters[this.state.actualCharacter];
+        // eslint-disable-next-line default-case
         switch (this.state.currentState) {
             case IS_LOADING:
                 return <CardLoading/>;
@@ -62,6 +63,42 @@ class App extends React.Component {
                         gender={character.gender}
                         numberOfSeasons={character.numberOfSeasons}
                         isDead={character.isDead}
+                    />
+                );
+            case ENTERING_CARD:
+                return (
+                    <CharacterCard
+                        additionalClass="--cardIn"
+                        name={character.name}
+                        culture={character.culture}
+                        gender={character.gender}
+                        numberOfSeasons={character.numberOfSeasons}
+                        isDead={character.isDead}
+                        animationEndHandler={() => {
+                            this.setState({
+                                currentState: CARD_VISIBLE
+                            });
+                        }}
+                    />
+                );
+            case LEAVING_CARD:
+                return (
+                    <CharacterCard
+                        additionalClass="--cardOut"
+                        name={character.name}
+                        culture={character.culture}
+                        gender={character.gender}
+                        numberOfSeasons={character.numberOfSeasons}
+                        isDead={character.isDead}
+                        animationEndHandler={() => {
+                            this.setState(state => ({
+
+                                currentState: ENTERING_CARD,
+                                actualCharacter: Math.floor(
+                                    Math.random() * state.characters.length
+                                )
+                            }));
+                        }}
                     />
                 );
         }

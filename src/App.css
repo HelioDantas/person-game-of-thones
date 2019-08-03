@@ -26,7 +26,7 @@
 }
 
 .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin 1s 20s linear;
     height: 40vmin;
     pointer-events: none;
 }
@@ -89,4 +89,34 @@
     height: 100%;
     z-index: 9999;
     background: url('http://i.imgur.com/zAD2y29.gif') 50% 50% no-repeat white;
+}
+
+.--cardIn{
+    animation: App-logo-in none 1s linear;
+}
+
+
+.--cardOut {
+    animation: App-logo-out none 1s linear;
+
+}
+@keyframes App-logo-out {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+@keyframes App-logo-in {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.characterCard-body{
+    text-align: left;
 }

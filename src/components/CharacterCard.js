@@ -2,7 +2,9 @@ import React from "react";
 
 function CharacterCard(props) {
     return (
-        <article className="characterCard">
+        <article
+            onAnimationEnd={props.animationEndHandler}
+            className={`characterCard ${props.additionalClass || ""}`}>
             <header className={`characterCard-header__wrapper ${props.isDead ? "--isDead" : ""}`}>
                 <h1 className="characterCard-name">{props.name}</h1>
             </header>
@@ -15,6 +17,7 @@ function CharacterCard(props) {
             </footer>
         </article>
     );
+
 }
 
 export default CharacterCard;
