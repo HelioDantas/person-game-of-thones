@@ -23,7 +23,8 @@ class App extends React.Component {
                     gender: "Female",
                     numberOfSeasons: 7,
                     isDead: false
-                }
+                },
+                
             ],
             actualCharacter: 0
         };
@@ -40,7 +41,11 @@ class App extends React.Component {
                     gender={character.gender}
                     numberOfSeasons={character.numberOfSeasons}
                 />
-                <Button/>
+                <Button clickHandler={() => {
+                    this.setState(state => ({
+                        actualCharacter: (state.actualCharacter + 1) % 2
+                    }));
+                }}/>
             </main>
         );
     }

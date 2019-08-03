@@ -1,7 +1,7 @@
 import React from "react";
 
-function Button() {
-    return <button className="nextButton">Next</button>;
+function Button(props) {
+    return <button onClick={props.clickHandler} className="nextButton">Next</button>;
 }
 
 export default Button;
