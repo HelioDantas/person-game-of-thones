@@ -81,7 +81,7 @@
         transform: rotate(360deg);
     }
 }
-.--isLoading{
+.--isLoadin{
     position: fixed;
     left: 0px;
     top: 0px;
@@ -124,4 +124,15 @@
 }
 .medio{
     width: 10em;
+}
+.--isLoading {
+    border: 8px solid rgba(0,0,0,.1);
+    border-left-color: #22a6b3;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0.833em;
+
+    animation: App-logo-spin infinite 1s linear;
+
 }

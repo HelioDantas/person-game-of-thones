@@ -26,7 +26,7 @@ class App extends React.Component {
             method: "GET",
             url: "https://www.anapioficeandfire.com/api/characters?page=2&pageSize=20"
         }).then(response => {
-            this.setState(state => {
+            this.setState( state => {
                 return {
                     characters: response.data,
                     currentState: ENTERING_CARD
