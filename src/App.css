@@ -1,33 +1,79 @@
 .App {
-  text-align: center;
+    text-align: center;
+}
+
+.characterCard-name {
+    margin: 0;
+}
+
+.characterCard-header__wrapper {
+    background-color: #61dafb;
+    border-radius: 4px;
+}
+
+.characterCard {
+    text-align: center;
+    background-color: aliceblue;
+    margin: 0.833em;
+    padding: 0.533em 0.833em 0.833em;
+
+    color: #282c34;
+    border-radius: 10px;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+    animation: App-logo-spin infinite 20s linear;
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.appRoot__wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(5px + 2vmin);
+    color: white;
+}
+
+.nextButton {
+    outline: none;
+    background-color: #61dafb;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: .580rem .90rem;
+    border-width: unset;
+    border-color: unset;
+    border-image: none;
+    border-radius: 72px 72px 72px 72px;
+    font-size: .875rem;
+    font-weight: 700;
+    border: navy;
+
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
