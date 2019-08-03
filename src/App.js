@@ -6,13 +6,17 @@ import CharacterCard from "./components/CharacterCard";
 import CardLoading from "./components/CardLoading";
 import Button from './components/Button';
 
+const IS_LOADING = Symbol("IS_LOADING");
+const ENTERING_CARD = Symbol("ENTERING_CARD");
+const CARD_VISIBLE = Symbol("CARD_VISIBLE");
+const LEAVING_CARD = Symbol("LEAVING_CARD");
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             characters: [],
-            hasFetched: false,
+            currentState: IS_LOADING,
             actualCharacter: 0
         };
     }
@@ -25,7 +29,7 @@ class App extends React.Component {
             this.setState(state => {
                 return {
                     characters: response.data,
-                    hasFetched: true
+                    currentState: CARD_VISIBLE
                 };
             });
         });
@@ -33,21 +37,9 @@ class App extends React.Component {
     }
 
     render() {
-        const character = this.state.characters[this.state.actualCharacter];
-
         return (
             <main className="appRoot__wrapper">
-                {this.state.hasFetched ? (
-                    <CharacterCard
-                        name={character.name}
-                        culture={character.culture}
-                        gender={character.gender}
-                        numberOfSeasons={character.numberOfSeasons}
-                        isDead={character.isDead}
-                    />
-                ) : (
-                    <CardLoading/>
-                )}
+                {this.renderCard()}
                 <Button clickHandler={() => {
                     this.setState(state => ({
                         actualCharacter: (state.actualCharacter + 1) % 2
@@ -55,6 +47,24 @@ class App extends React.Component {
                 }}/>
             </main>
         );
+    }
+
+    renderCard() {
+        const character = this.state.characters[this.state.actualCharacter];
+        switch (this.state.currentState) {
+            case IS_LOADING:
+                return <CardLoading/>;
+            case CARD_VISIBLE:
+                return (
+                    <CharacterCard
+                        name={character.name}
+                        culture={character.culture}
+                        gender={character.gender}
+                        numberOfSeasons={character.numberOfSeasons}
+                        isDead={character.isDead}
+                    />
+                );
+        }
     }
 }
 
