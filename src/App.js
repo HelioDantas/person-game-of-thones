@@ -5,20 +5,23 @@ import './App.css';
 import CharacterCard from "./components/CharacterCard";
 import CardLoading from "./components/CardLoading";
 import Button from './components/Button';
-
-const IS_LOADING = Symbol("IS_LOADING");
-const ENTERING_CARD = Symbol("ENTERING_CARD");
-const CARD_VISIBLE = Symbol("CARD_VISIBLE");
-const LEAVING_CARD = Symbol("LEAVING_CARD");
+import reducer, {
+    CHARACTERS_LOADED,
+    CHANGE_ACTUAL_CHARACTER,
+    ANIMATE_CHARACTER_IN,
+    CHARACTER_IS_VISIBLE,
+    ANIMATE_CHARACTER_OUT
+} from "./reducer";
+import * as stateMachineDefinitions from "./stateMachineDefinitions";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            characters: [],
-            currentState: IS_LOADING,
-            actualCharacter: 0
-        };
+        this.state = reducer();
+    }
+
+    dispatch(action) {
+        this.setState(state => reducer(state, action));
     }
 
     componentDidMount() {
@@ -26,11 +29,9 @@ class App extends React.Component {
             method: "GET",
             url: "https://www.anapioficeandfire.com/api/characters?page=2&pageSize=20"
         }).then(response => {
-            this.setState( state => {
-                return {
-                    characters: response.data,
-                    currentState: ENTERING_CARD
-                };
+            this.setState(state => {
+                this.dispatch({type: CHARACTERS_LOADED, payload: response.data});
+                this.dispatch({type: ANIMATE_CHARACTER_IN});
             });
         });
 
@@ -41,9 +42,7 @@ class App extends React.Component {
             <main className="appRoot__wrapper">
                 {this.renderCard()}
                 <Button clickHandler={() => {
-                    this.setState(state => ({
-                        currentState: LEAVING_CARD
-                    }));
+                    this.setState(state => this.dispatch({type: ANIMATE_CHARACTER_OUT}));
                 }}/>
             </main>
         );
@@ -51,11 +50,11 @@ class App extends React.Component {
 
     renderCard() {
         const character = this.state.characters[this.state.actualCharacter];
-        // eslint-disable-next-line default-case
+
         switch (this.state.currentState) {
-            case IS_LOADING:
+            case stateMachineDefinitions.IS_LOADING:
                 return <CardLoading/>;
-            case CARD_VISIBLE:
+            case stateMachineDefinitions.CARD_VISIBLE:
                 return (
                     <CharacterCard
                         name={character.name}
@@ -65,7 +64,7 @@ class App extends React.Component {
                         isDead={character.isDead}
                     />
                 );
-            case ENTERING_CARD:
+            case stateMachineDefinitions.ENTERING_CARD:
                 return (
                     <CharacterCard
                         additionalClass="--cardIn"
@@ -75,13 +74,11 @@ class App extends React.Component {
                         numberOfSeasons={character.numberOfSeasons}
                         isDead={character.isDead}
                         animationEndHandler={() => {
-                            this.setState({
-                                currentState: CARD_VISIBLE
-                            });
+                            this.dispatch({type: CHARACTER_IS_VISIBLE});
                         }}
                     />
                 );
-            case LEAVING_CARD:
+            case stateMachineDefinitions.LEAVING_CARD:
                 return (
                     <CharacterCard
                         additionalClass="--cardOut"
@@ -91,13 +88,13 @@ class App extends React.Component {
                         numberOfSeasons={character.numberOfSeasons}
                         isDead={character.isDead}
                         animationEndHandler={() => {
-                            this.setState(state => ({
-
-                                currentState: ENTERING_CARD,
-                                actualCharacter: Math.floor(
-                                    Math.random() * state.characters.length
+                            this.dispatch({
+                                type: CHANGE_ACTUAL_CHARACTER,
+                                payload: Math.floor(
+                                    Math.random() * this.state.characters.length
                                 )
-                            }));
+                            });
+                            this.dispatch({type: ANIMATE_CHARACTER_IN});
                         }}
                     />
                 );
