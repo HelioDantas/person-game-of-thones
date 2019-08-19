@@ -1,0 +1,151 @@
+.App {
+    text-align: center;
+}
+
+.characterCard-name {
+    margin: 0;
+}
+
+.characterCard-header__wrapper {
+    background-color: #61dafb;
+    border-radius: 4px;
+}
+
+.--isDead {
+    background: red;
+}
+
+.characterCard {
+    text-align: center;
+    background-color: aliceblue;
+    margin: 0.833em;
+    padding: 0.533em 0.833em 0.833em;
+
+    color: #282c34;
+    border-radius: 10px;
+}
+
+.App-logo {
+    animation: App-logo-spin 1s 20s linear;
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.appRoot__wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(5px + 2vmin);
+    color: white;
+}
+
+.nextButton {
+    outline: none;
+    background-color: #61dafb;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: .580rem .90rem;
+    border-width: unset;
+    border-color: unset;
+    border-image: none;
+    border-radius: 72px 72px 72px 72px;
+    font-size: .875rem;
+    font-weight: 700;
+    border: navy;
+
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.--isLoadin {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('http://i.imgur.com/zAD2y29.gif') 50% 50% no-repeat white;
+}
+
+.--cardIn {
+    animation: App-logo-in none 1s linear;
+}
+
+
+.--cardOut {
+    animation: App-logo-out none 1s linear;
+
+}
+
+@keyframes App-logo-out {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+
+@keyframes App-logo-in {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.characterCard-body {
+    text-align: left;
+    padding: inherit;
+    padding-left: 1.3em;
+}
+
+.medio {
+    width: 10em;
+}
+
+.--isLoading {
+    border: 8px solid rgba(0, 0, 0, .1);
+    border-left-color: #22a6b3;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0.833em;
+
+    animation: App-logo-spin infinite 1s linear;
+
+}
+
+.nextButton:hover {
+    background-color: darkturquoise;
+}
+
+.nextButton:active {
+    border: 1px solid #22a6b3;
+}
